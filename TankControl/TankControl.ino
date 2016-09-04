@@ -16,6 +16,9 @@ Adafruit_MotorShield AFMS = Adafruit_MotorShield(0x64);
 Adafruit_DCMotor *leftMotor = AFMS.getMotor(3);
 Adafruit_DCMotor *rightMotor = AFMS.getMotor(4);
 
+// sonar
+const int sonarPin = 0;
+
 // MPU6050
 MPU6050 mpu;
 
@@ -168,7 +171,18 @@ void loop() {
       fifoCount -= packetSize;
 
       Serial.print("Data:");
+
+      //timestamp
+      Serial.print(millis());
+
+      //sonar data
+      int cm = analogRead(sonarPin) / 2 * 2.54;
+      Serial.print(",");
+      Serial.print(cm);
+      
+      //mpu data
       mpu.dmpGetQuaternion(&q, fifoBuffer);
+      Serial.print(",");
       Serial.print(q.w);
       Serial.print(",");
       Serial.print(q.x);
