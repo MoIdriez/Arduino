@@ -176,9 +176,9 @@ void loop() {
       Serial.print(millis());
 
       //sonar data
-      int cm = analogRead(sonarPin) / 2 * 2.54;
+      double inches = analogRead(sonarPin) / 2;
       Serial.print(",");
-      Serial.print(cm);
+      Serial.print(inches * 2.54);
       
       //mpu data
       mpu.dmpGetQuaternion(&q, fifoBuffer);
